@@ -28,7 +28,7 @@
 
         body {
             font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #c5c5c5 0%, #2c2b2e 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -41,7 +41,7 @@
             background: var(--white);
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-medium);
-            max-width: 400px;
+            max-width: 500px;
             width: 100%;
             overflow: hidden;
             position: relative;
@@ -61,7 +61,7 @@
 
         .header-section {
             background: linear-gradient(135deg, var(--primary-burgundy) 0%, #a0374a 100%);
-            padding: 30px 20px;
+            padding: 20px 20px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -86,7 +86,7 @@
         }
 
         .logo-section {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             position: relative;
             z-index: 2;
         }
@@ -105,11 +105,16 @@
             overflow: hidden;
         }
 
-        .ministry-logo::before {
-            content: '🏛️';
-            font-size: 35px;
-            filter: sepia(1) hue-rotate(25deg) brightness(1.2);
-        }
+       .ministry-logo::before {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 80px;
+    background-image: url('logo12.png'); /* استبدل بالمسار الصحيح للشعار */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
         .ministry-text {
             color: var(--secondary-gold);
