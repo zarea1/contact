@@ -3,65 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أحمد محمد زارع - بطاقة التعريف الرقمية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <title>Ahmed Zarea- Digital Business Card</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* CSS Variables - Modern Color Palette */
+        :root {
+            /* Primary Colors - Government */
+            --primary-blue: #0a3d62;
+            --primary-dark-blue: #082b47;
+            --primary-light-blue: #0c3955;
+            
+            /* Secondary Colors - Gold */
+            --gold-primary: #D4AF37;
+            --gold-light: #f4d03f;
+            --gold-dark: #b7950b;
+            --gold-gradient: linear-gradient(135deg, var(--gold-primary), var(--gold-light));
+            
+            /* Neutral Colors */
+            --white: #ffffff;
+            --off-white: #f8f9fa;
+            --light-gray: #e9ecef;
+            --medium-gray: #6c757d;
+            --dark-gray: #343a40;
+            --black: #212529;
+            
+            /* UI Effects */
+            --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 30px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.2);
+            --shadow-gold: 0 0 20px rgba(212, 175, 55, 0.3);
+            
+            --border-radius-sm: 8px;
+            --border-radius-md: 16px;
+            --border-radius-lg: 24px;
+            --border-radius-xl: 32px;
+            --border-radius-round: 50%;
+            
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-medium: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-xxl: 3rem;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            border-radius: var(--border-radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            color: var(--medium-gray);
+        }
+
+        .lang-btn.active {
+            background: var(--gold-primary);
+            color: var(--primary-dark-blue);
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: var(--light-gray);
+        }
+
+        /* Reset & Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            /* Official Government Colors */
-            --primary-burgundy: #ec1b3a;
-            --secondary-gold: #D4AF37;
-            --dark-navy: #07070e;
-            --light-gray: #f8f9fa;
-            --medium-gray: #6c757d;
-            --white: #ffffff;
-            --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.1);
-            --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.15);
-            --border-radius: 20px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
         }
 
         body {
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #c5c5c5 0%, #2c2b2e 100%);
+            font-family: 'Cairo', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #5767b0 0%, #10224a 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
             line-height: 1.6;
+            color: var(--dark-gray);
+            position: relative;
+            overflow-x: hidden;
+            transition: background 0.5s ease;
         }
 
+        body[dir="ltr"] {
+            font-family: 'Inter', 'Cairo', sans-serif;
+        }
+
+        /* Animated Background */
+        body::before {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(10, 61, 98, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* Main Card Container */
         .card-container {
             background: var(--white);
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-medium);
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-xl);
             max-width: 500px;
             width: 100%;
             overflow: hidden;
             position: relative;
-            animation: slideUp 0.8s ease-out;
+            animation: cardEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
+        @keyframes cardEntrance {
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
 
+        /* Header Section */
         .header-section {
-            background: linear-gradient(135deg, var(--primary-burgundy) 0%, #a0374a 100%);
-            padding: 20px 20px;
+            background: linear-gradient(125deg, var(--primary-blue) 0%, var(--primary-dark-blue) 100%);
+            padding: var(--space-xl) var(--space-lg);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -70,554 +153,1169 @@
         .header-section::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            opacity: 0.3;
-            animation: float 20s ease-in-out infinite;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.03) 50%, transparent 70%);
+            animation: shine 3s infinite linear;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(10px, -10px) rotate(1deg); }
-            66% { transform: translate(-5px, 5px) rotate(-1deg); }
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
+        /* Logo Section */
         .logo-section {
-            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
             position: relative;
             z-index: 2;
         }
 
         .ministry-logo {
-            width: 80px;
-            height: 80px;
-            background: var(--secondary-gold);
-            border-radius: 15px;
-            margin: 0 auto 15px;
+            width: 90px;
+            height: 90px;
+            background: var(--white);
+            border-radius: var(--border-radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            box-shadow: var(--shadow-md);
             position: relative;
             overflow: hidden;
+            border: 2px solid var(--gold-primary);
         }
 
-       .ministry-logo::before {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 80px;
-    background-image: url('logo12.jpeg'); /* استبدل بالمسار الصحيح للشعار */
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
+        .ministry-logo::before {
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         .ministry-text {
-            color: var(--secondary-gold);
-            font-size: 14px;
+            color: var(--white);
+            font-size: 0.8rem;
             font-weight: 600;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            line-height:0.9;
+            padding: 0 var(--space-md);
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: var(--border-radius-sm);
+            padding: var(--space-sm) var(--space-md);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Profile Image */
+        .profile-image-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto var(--space-xl);
+            z-index: 2;
         }
 
         .profile-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            border-radius: var(--border-radius-round);
             border: 4px solid var(--white);
-            box-shadow: var(--shadow-medium);
-            margin: 20px auto;
+            box-shadow: var(--shadow-lg);
+            object-fit: cover;
             background: var(--light-gray);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            color: var(--medium-gray);
-            position: relative;
-            z-index: 2;
-            overflow: hidden;
+            transition: var(--transition-medium);
         }
 
-    
+        .profile-image-container:hover .profile-image {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-gold);
+        }
 
+        /* Main Content */
         .main-content {
-            padding: 30px 25px;
+            padding: var(--space-xl) var(--space-lg);
             text-align: center;
         }
 
         .name {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--dark-navy);
-            margin-bottom: 10px;
-            letter-spacing: -0.5px;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-dark-blue);
+            margin-bottom: var(--space-sm);
+            line-height: 1.2;
+            position: relative;
+            display: inline-block;
+        }
+
+        .name::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 60px;
+            height: 4px;
+            background: var(--gold-gradient);
+            border-radius: 2px;
+        }
+
+        body[dir="ltr"] .name::after {
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
         }
 
         .title {
-            font-size: 16px;
+            font-size: 1.1rem;
             color: var(--medium-gray);
-            margin-bottom: 8px;
+            margin-bottom: var(--space-xs);
             font-weight: 600;
-            line-height: 1.4;
         }
 
         .organization {
-            font-size: 15px;
-            color: var(--primary-burgundy);
+            font-size: 1rem;
+            color: var(--primary-blue);
             font-weight: 700;
-            margin-bottom: 25px;
-            line-height: 1.5;
-            padding: 0 10px;
+            margin-bottom: var(--space-xl);
+            padding: var(--space-sm) var(--space-md);
+            background: linear-gradient(135deg, rgba(10, 61, 98, 0.05) 0%, transparent 100%);
+            border-radius: var(--border-radius-md);
+            display: inline-block;
         }
 
+        /* Add Contact Button - FIXED */
         .add-contact-btn {
-            background: linear-gradient(135deg, var(--primary-burgundy) 0%, #a0374a 100%);
-            color: var(--white);
+            background: var(--gold-gradient);
+            color: var(--primary-dark-blue);
             border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--border-radius-lg);
+            font-size: 1rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--shadow-light);
-            margin-bottom: 30px;
-            font-family: 'Cairo', sans-serif;
+            transition: var(--transition-medium);
+            box-shadow: var(--shadow-md);
+            margin: 0 auto var(--space-xl);
+            font-family: inherit;
+            width: auto;
+            min-width: 240px;
+            max-width: 280px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            transform: scale(1);
+            will-change: transform;
+            border: 2px solid transparent;
         }
 
         .add-contact-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-medium);
-            background: linear-gradient(135deg, #a0374a 0%, var(--primary-burgundy) 100%);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-lg), var(--shadow-gold);
+            border-color: var(--gold-dark);
         }
 
         .add-contact-btn:active {
-            transform: translateY(0);
+            transform: translateY(0) scale(0.98);
+            transition: transform 0.1s ease;
         }
 
-        .contact-grid {
-            background: var(--dark-navy);
-            border-radius: var(--border-radius);
-            padding: 25px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin: 0 -5px;
+        .add-contact-btn.loading {
+            pointer-events: none;
+            opacity: 0.8;
         }
 
-        .contact-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: var(--white);
-            transition: var(--transition);
-            padding: 15px 10px;
-            border-radius: 12px;
-            cursor: pointer;
-        }
-
-        .contact-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px);
-        }
-
-        .contact-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--white);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 8px;
-            font-size: 20px;
-            transition: var(--transition);
-        }
-
-        .contact-item:hover .contact-icon {
-            background: var(--secondary-gold);
-            transform: scale(1.1);
-        }
-
-        .contact-label {
-            font-size: 12px;
-            font-weight: 600;
-            text-align: center;
-            line-height: 1.3;
-        }
-
-        .footer-section {
-            background: var(--light-gray);
-            padding: 20px;
-            text-align: center;
-            border-top: 1px solid #e9ecef;
-        }
-
-        .footer-text {
-            color: var(--medium-gray);
-            font-size: 14px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .footer-icon {
-            font-size: 16px;
-        }
-
-        /* Success Message */
-        .success-message {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #28a745;
+        .add-contact-btn.success {
+            background: linear-gradient(135deg, #28a745, #20c997);
             color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: var(--shadow-medium);
-            transform: translateX(400px);
-            transition: var(--transition);
-            z-index: 1000;
-            font-weight: 600;
         }
 
-        .success-message.show {
-            transform: translateX(0);
+        .add-contact-btn .btn-content {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            position: relative;
+            z-index: 1;
         }
 
-        /* Responsive Design */
-        @media (max-width: 480px) {
-            .card-container {
-                margin: 10px;
-                max-width: 100%;
-            }
-
-            .contact-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-            }
-
-            .name {
-                font-size: 24px;
-            }
-
-            .title {
-                font-size: 14px;
-            }
-
-            .organization {
-                font-size: 13px;
-            }
-        }
-
-        /* Loading Animation */
-        .loading {
-            display: inline-block;
+        .loading-spinner {
             width: 20px;
             height: 20px;
             border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
+            border-radius: var(--border-radius-round);
             border-top-color: var(--white);
             animation: spin 1s ease-in-out infinite;
+            display: none;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        /* Pulse Animation for Contact Icons */
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        @media (max-width: 480px) {
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .add-contact-btn {
+                width: 100%;
+                max-width: 100%;
+                min-width: auto;
+            }
+        }
+
+        /* Contact Item */
+        .contact-item {
+            background: var(--off-white);
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius-md);
+            padding: var(--space-lg) var(--space-md);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--dark-gray);
+            transition: var(--transition-medium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gold-gradient);
+            opacity: 0;
+            transition: var(--transition-medium);
+            z-index: 0;
+        }
+
+        body[dir="ltr"] .contact-item::before {
+            left: 0;
+            right: auto;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--gold-primary);
+        }
+
+        .contact-item:hover::before {
+            opacity: 0.1;
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--white);
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-sm);
+            position: relative;
+            z-index: 1;
+            box-shadow: var(--shadow-xs);
+            border: 2px solid var(--light-gray);
+            transition: var(--transition-medium);
         }
 
         .contact-item:hover .contact-icon {
-            animation: pulse 2s infinite;
+            background: var(--gold-primary);
+            border-color: var(--gold-primary);
+            transform: scale(1.1);
+        }
+
+        .contact-icon svg {
+            width: 24px;
+            height: 24px;
+            transition: var(--transition-fast);
+        }
+
+        .contact-item:hover .contact-icon svg {
+            fill: var(--white);
+            stroke: var(--white);
+        }
+
+        .contact-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            color: var(--medium-gray);
+            position: relative;
+            z-index: 1;
+            transition: var(--transition-fast);
+        }
+
+        .contact-item:hover .contact-label {
+            color: var(--primary-dark-blue);
+        }
+
+        /* Social Media Footer */
+        .social-footer {
+            background: var(--primary-dark-blue);
+            padding: var(--space-xl) var(--space-lg);
+            border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.03) 50%, transparent 60%);
+            animation: shine 4s infinite linear;
+        }
+
+        .social-footer-content {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+            position: relative;
+            z-index: 2;
+        }
+
+        .social-button {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--border-radius-round);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition-medium);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .social-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: currentColor;
+            opacity: 0;
+            transition: var(--transition-medium);
+        }
+
+        body[dir="ltr"] .social-button::before {
+            left: 0;
+            right: auto;
+        }
+
+        .social-button:hover {
+            transform: translateY(-5px) scale(1.1);
+            border-color: currentColor;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-button:hover::before {
+            opacity: 0.1;
+        }
+
+        .social-button i {
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-button.cv-download {
+            background: var(--gold-gradient);
+            border: none;
+            color: var(--primary-dark-blue);
+        }
+
+        .social-button.cv-download:hover {
+            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+        }
+
+        /* Success Message */
+        .success-message {
+            position: fixed;
+            top: var(--space-lg);
+            right: var(--space-lg);
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: var(--white);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-lg);
+            transform: translateX(400px);
+            transition: var(--transition-medium);
+            z-index: 1000;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 350px;
+            text-align: right;
+        }
+
+        body[dir="ltr"] .success-message {
+            right: auto;
+            left: var(--space-lg);
+            transform: translateX(-400px);
+            text-align: left;
+        }
+
+        .success-message.show {
+            transform: translateX(0);
+        }
+
+        body[dir="ltr"] .success-message.show {
+            transform: translateX(0);
+        }
+
+
+
+        .ministry-logo {
+    width: 85px;           /* يمكنك تغيير الحجم حسب رغبتك */
+    height: 85px;
+    border-radius: 50%;    /* يجعل اللوجو دائري */
+    background-image: url('logo12.jpeg'); /* ضع مسار اللوجو */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 3px solid #fff;  /* اختياري: إطار أبيض أنيق */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* لمسة حديثة */
+}
+
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: var(--border-radius-round);
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus Styles */
+        *:focus {
+            outline: 2px solid var(--gold-primary);
+            outline-offset: 2px;
+        }
+
+        *:focus:not(.focus-visible) {
+            outline: none;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white !important;
+            }
+            
+            .card-container {
+                box-shadow: none !important;
+                max-width: 100% !important;
+            }
+            
+            .add-contact-btn,
+            .social-footer,
+            .language-switcher {
+                display: none !important;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High Contrast Mode */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary-blue: #000080;
+                --gold-primary: #ffd700;
+                --white: #ffffff;
+                --black: #000000;
+            }
+            
+            .contact-item {
+                border: 2px solid var(--black);
+            }
         }
     </style>
 </head>
-<body>
+<body dir="rtl">
+
+
+    <!-- Main Card -->
     <div class="card-container">
         <!-- Header Section -->
         <div class="header-section">
             <div class="logo-section">
                 <div class="ministry-logo"></div>
-<div class="ministry-text">Cabinet of Ministers - Education Development Fund</div>
+                <div class="ministry-text" data-ar="رئاسة مجلس الوزراء - صندوق تطوير التعليم"
+                     data-en="Cabinet of Ministers - Education Development Fund">
+                    Cabinet of Ministers - Education Development Fund
+                </div>
             </div>
-            <div class="profile-image" id="profileImage">
-    <img src="zarea (1).png" alt="الصورة الشخصية"
-         style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
-</div>
+            
+            <div class="profile-image-container">
+                <img src="Gemini_Generated_Image_8s36gk8s36gk8s36777.png" 
+                     alt="Ahmed Mohamed Zarea Profile Photo" 
+                     class="profile-image"
+                     onerror="this.src=''">
+            </div>
         </div>
 
         <!-- Main Content -->
         <div class="main-content">
-            <h1 class="name">  Ahmed Mohamed Zarea </h1>
-            <p class="title"> Head of GIS Unit
-<p class="organization">Technical Office</p>
+            <h1 class="name" data-ar="أحمد محمد زارع" data-en="Ahmed Mohamed Zarea">
+Ahmed Mohamed Zarea            </h1>
+            <p class="title" data-ar="رئيس وحدة نظم المعلومات الجغرافية" data-en="Head of GIS Unit">
+                Head of GIS Unit
+            </p>
+            <p class="organization" data-ar="المكتب الفني – صندوق تطوير التعليم" 
+               data-en="Technical Office – Education Development Fund">
+                Technical Office
+            </p>
             
-            <button class="add-contact-btn" onclick="addToContacts()">
-                <span id="btnText">+Add Contact</span>
-                <span id="btnLoading" class="loading" style="display: none;"></span>
+            <button class="add-contact-btn" onclick="addToContacts()" 
+                    data-ar-label="إضافة جهة اتصال إلى الهاتف" 
+                    data-en-label="Add Contact to Phone">
+                <div class="btn-content">
+                    <i class="fas fa-user-plus"></i>
+                    <span id="btnText" data-ar="إضافة جهة اتصال" data-en="Add Contact">
+Add Contact                    </span>
+                    <div class="loading-spinner" id="btnLoading"></div>
+                </div>
             </button>
-<!-- Contact Grid -->
-<div class="contact-grid">
-    <!-- الهاتف -->
-    <a href="tel:+201101026302" class="contact-item" onclick="trackContact('phone')">
-        <div class="contact-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill=#000000 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path>
-            </svg>
-        </div>
-        <div class="contact-label">Phone</div>
-    </a>
 
-    <!-- LinkedIn -->
-    <a href="https://www.linkedin.com/in/ahmed-zarea/ " target="_blank" class="contact-item" onclick="trackContact('linkedin')">
-        <div class="contact-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill=#000000 stroke=#000000 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"></path>
-                <rect x="2" y="9" width="4" height="12"></rect>
-                <circle cx="4" cy="4" r="1"></circle>
-            </svg>
-        </div>
-        <div class="contact-label">LinkedIn</div>
-    </a>
+            <!-- Contact Grid -->
+            <div class="contact-grid">
+                <!-- Phone -->
+                <a href="tel:+201101026302" class="contact-item" onclick="trackContact('phone')"
+                   data-ar-label="الاتصال بالهاتف" data-en-label="Call Phone">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                        </svg>
+                    </div>
+                    <div class="contact-label" data-ar="الهاتف" data-en="Phone">Phone</div>
+                </a>
 
-    <!-- Facebook -->
-    <a href="https://www.facebook.com/share/16dB9fPDtH/ " target="_blank" class="contact-item" onclick="trackContact('facebook')">
-        <div class="contact-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill=#000000 stroke=#000000 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-            </svg>
-        </div>
-        <div class="contact-label">Facebook</div>
-    </a>
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/ahmed-zarea/" target="_blank" rel="noopener noreferrer" 
+                   class="contact-item" onclick="trackContact('linkedin')"
+                   data-ar-label="الملف الشخصي على LinkedIn" data-en-label="LinkedIn Profile">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
+                            <rect x="2" y="9" width="4" height="12"/>
+                            <circle cx="4" cy="4" r="2"/>
+                        </svg>
+                    </div>
+                    <div class="contact-label" data-ar="LinkedIn" data-en="LinkedIn">LinkedIn</div>
+                </a>
 
-    <!-- Github -->
-    <a href="https://github.com/ahmedzareagis " class="contact-item" onclick="trackContact('github')">
-        <div class="contact-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill=#000000 xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.795-.26.795-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-        </div>
-        <div class="contact-label">Github</div>
-    </a>
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/share/16dB9fPDtH/" target="_blank" rel="noopener noreferrer" 
+                   class="contact-item" onclick="trackContact('facebook')"
+                   data-ar-label="الملف الشخصي على Facebook" data-en-label="Facebook Profile">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                        </svg>
+                    </div>
+                    <div class="contact-label" data-ar="Facebook" data-en="Facebook">Facebook</div>
+                </a>
 
-    <!-- البريد الرسمي -->
-    <a href="mailto:ahmedzare@edf.edu.eg" class="contact-item" onclick="trackContact('work-email')">
-        <div class="contact-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill=#000000 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
-        </div>
-        <div class="contact-label">Email </div>
-    </a>
+                <!-- GitHub -->
+                <a href="https://github.com/ahmedzareagis" target="_blank" rel="noopener noreferrer" 
+                   class="contact-item" onclick="trackContact('github')"
+                   data-ar-label="الملف الشخصي على GitHub" data-en-label="GitHub Profile">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+                        </svg>
+                    </div>
+                    <div class="contact-label" data-ar="GitHub" data-en="GitHub">GitHub</div>
+                </a>
 
-    <!-- السيرة الذاتية -->
-    <a href="#" onclick="downloadCV()" class="contact-item">
-        <div class="contact-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill=#000000 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
-                <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-        </div>
-        <div class="contact-label">Curriculum Vitae</div>
-    </a>
-</div>
+                <!-- Email -->
+                <a href="mailto:ahmedzare@edf.edu.eg" class="contact-item" onclick="trackContact('work-email')"
+                   data-ar-label="إرسال بريد إلكتروني" data-en-label="Send Email">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <div class="contact-label" data-ar="Email" data-en="Email">
+Email                    </div>
+                </a>
 
-        <!-- Footer -->
-        <div class="footer-section">
-            <div class="footer-text">
-                <span class="footer-icon">🚀</span>
-                AMZ
+                <!-- CV -->
+                <a href="#" onclick="downloadCV(event)" class="contact-item"
+                   data-ar-label="تحميل السيرة الذاتية" data-en-label="Download CV">
+                    <div class="contact-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10 9 9 9 8 9"/>
+                        </svg>
+                    </div>
+                    <div class="contact-label" data-ar="السيرة الذاتية" data-en="CV">
+                        CV
+                    </div>
+                </a>
             </div>
         </div>
-    </div>
+
 
     <!-- Success Message -->
-    <div class="success-message" id="successMessage">
-The contact has been added successfully! ✅
+    <div class="success-message" id="successMessage" role="alert" aria-live="polite">
+        <i class="fas fa-check-circle"></i>
+        <span id="successText" data-ar="تم إضافة جهة الاتصال بنجاح! ✅" 
+              data-en="Contact added successfully! ✅">
+Contact added successfully! ✅        </span>
     </div>
 
+    <!-- Screen Reader Announcer -->
+    <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
     <script>
+        // Enhanced JavaScript with Multilingual Support
+        
+        // Current language state
+        let currentLang = 'ar';
+        
+        // Language data
+        const translations = {
+            ar: {
+                // Page title
+                pageTitle: "Ahmed Mohamed Zarea - Digital ID",
+                
+// Button texts
+addContact: "Add Contact",
+adding: "Adding...",
+added: "✅ Added",
+downloadCV: "Download CV",
+                
+// Messages
+successAdd: "Contact added successfully! ✅",
+successDownload: "CV downloaded successfully! 📄",
+errorAdd: "An error occurred while adding the contact",
+errorDownload: "An error occurred while downloading the CV",
+online: "Connection restored",
+offline: "You are currently offline",
+                
+// Labels
+phone: "Phone",
+linkedin: "LinkedIn",
+facebook: "Facebook",
+github: "GitHub",
+email: "Email",
+cv: "CV",
+                
+// Profile
+name: "Ahmed Mohamed Zare'",
+title: "Head of Geographic Information Systems (GIS) Unit",
+organization: "Technical Office – Education Development Fund",
+ministry: "Cabinet of Ministers - Education Development Fund",
+footer: "Ahmed Mohamed Zare' - Digital Card",
+            },
+            en: {
+                // Page title
+                pageTitle: "Ahmed Mohamed Zarea - Digital Business Card",
+                
+                // Button texts
+                addContact: "Add Contact",
+                adding: "Adding...",
+                added: "✅ Added",
+                downloadCV: "Curriculum Vitae",
+                
+                // Messages
+                successAdd: "Contact added successfully! ✅",
+                successDownload: "CV downloaded successfully! 📄",
+                errorAdd: "Error adding contact",
+                errorDownload: "Error downloading CV",
+                online: "Internet connection restored",
+                offline: "You are offline",
+                
+                // Labels
+                phone: "Phone",
+                linkedin: "LinkedIn",
+                facebook: "Facebook",
+                github: "GitHub",
+                email: "Email",
+                cv: "Curriculum Vitae",
+                
+                // Profile
+                name: "Ahmed Mohamed Zarea",
+                title: "Head of GIS Unit",
+                organization: "Technical Office – Education Development Fund",
+                ministry: "Cabinet of Ministers - Education Development Fund",
+                footer: "Ahmed Zarea - Digital Card"
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved language preference
+            const savedLang = localStorage.getItem('preferredLang');
+            if (savedLang && (savedLang === 'ar' || savedLang === 'en')) {
+                currentLang = savedLang;
+                updateLanguageButtons();
+                translatePage();
+            }
+
+            // Add animation to contact items
+            const contactItems = document.querySelectorAll('.contact-item');
+            contactItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+            });
+
+            // Add ripple effect to all clickable items
+            const clickableItems = document.querySelectorAll('.contact-item, .social-button, .add-contact-btn, .lang-btn');
+            clickableItems.forEach(item => {
+                item.addEventListener('click', createRipple);
+            });
+
+            // Add keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    const focused = document.activeElement;
+                    if (focused.classList.contains('contact-item') || 
+                        focused.classList.contains('social-button') || 
+                        focused.classList.contains('add-contact-btn') ||
+                        focused.classList.contains('lang-btn')) {
+                        e.preventDefault();
+                        focused.click();
+                    }
+                }
+            });
+
+            // Initialize accessibility
+            initializeAccessibility();
+        });
+
+        // Switch Language Function
+        function switchLanguage(lang) {
+            if (lang === currentLang) return;
+            
+            currentLang = lang;
+            localStorage.setItem('preferredLang', lang);
+            
+            // Update HTML direction
+            document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Update page title
+            document.title = translations[lang].pageTitle;
+            
+            // Update language buttons
+            updateLanguageButtons();
+            
+            // Translate entire page
+            translatePage();
+            
+            // Announce language change
+            announceToScreenReader(lang === 'ar' ? 'تم التبديل إلى اللغة العربية' : 'Switched to English');
+        }
+
+        // Update Language Buttons
+        function updateLanguageButtons() {
+            const arabicBtn = document.querySelector('.lang-btn[onclick*="ar"]');
+            const englishBtn = document.querySelector('.lang-btn[onclick*="en"]');
+            
+            if (currentLang === 'ar') {
+                arabicBtn.classList.add('active');
+                englishBtn.classList.remove('active');
+            } else {
+                englishBtn.classList.add('active');
+                arabicBtn.classList.remove('active');
+            }
+        }
+
+        // Translate Page Content
+        function translatePage() {
+            // Update all elements with data attributes
+            document.querySelectorAll('[data-ar], [data-en]').forEach(element => {
+                const text = translations[currentLang][element.getAttribute('data-' + currentLang) ? 
+                    element.getAttribute('data-' + currentLang).split('-').pop() : ''];
+                
+                if (text && element.textContent !== text) {
+                    element.textContent = text;
+                }
+            });
+
+            // Update aria-labels
+            document.querySelectorAll('[data-ar-label], [data-en-label]').forEach(element => {
+                const label = translations[currentLang][element.getAttribute('data-' + currentLang + '-label') ? 
+                    element.getAttribute('data-' + currentLang + '-label').split('-').pop() : ''];
+                
+                if (label) {
+                    element.setAttribute('aria-label', label);
+                }
+            });
+
+            // Update success message text
+            const successText = document.getElementById('successText');
+            if (successText) {
+                successText.textContent = translations[currentLang].successAdd;
+            }
+        }
+
         // Add to Contacts Functionality
         function addToContacts() {
             const btn = document.querySelector('.add-contact-btn');
-            const btnText = document.getElementById('btnText');
-            const btnLoading = document.getElementById('btnLoading');
+            const btnText = document.querySelector('#btnText');
+            const btnLoading = document.querySelector('#btnLoading');
+            
+            // Prevent multiple clicks
+            if (btn.classList.contains('loading')) return;
             
             // Show loading state
+            btn.classList.add('loading');
             btnText.style.display = 'none';
-            btnLoading.style.display = 'inline-block';
-            btn.style.pointerEvents = 'none';
+            btnLoading.style.display = 'block';
+            btn.setAttribute('aria-busy', 'true');
+            btn.setAttribute('disabled', 'true');
             
-            // Simulate contact addition process
-            setTimeout(() => {
-                // Create vCard data
-                const vCardData = `BEGIN:VCARD
+            // Update button text for loading
+            btnText.textContent = translations[currentLang].adding;
+            
+            // Create vCard data with appropriate encoding
+            const vCardData = `BEGIN:VCARD
 VERSION:3.0
-FN:أحمد محمد زارع محمود
-ORG:صندوق تطوير التعليم - رئاسة مجلس الوزراء
-TITLE:رئيس وحدة نظم المعلومات الجغرافيه
-TEL;TYPE=WORK,VOICE:+201101026302
+FN;CHARSET=UTF-8:${translations[currentLang].name}
+N;CHARSET=UTF-8:Zarea;Ahmed;Mohamed;;;
+ORG;CHARSET=UTF-8:${translations[currentLang].ministry}
+TITLE;CHARSET=UTF-8:${translations[currentLang].title}
+TEL;TYPE=WORK,VOICE;PREF=1:+201101026302
+EMAIL;TYPE=WORK,PREF=1:ahmedzare@edf.edu.eg
 EMAIL;TYPE=WORK:ahmedzaregis@gmail.com
-EMAIL;TYPE=WORK:ahmedzare@edf.edu.eg
 URL;TYPE=WORK:https://www.linkedin.com/in/ahmed-zarea/
 URL;TYPE=WORK:https://www.facebook.com/share/16dB9fPDtH/
+URL;TYPE=WORK:https://github.com/ahmedzareagis
+NOTE;CHARSET=UTF-8:${translations[currentLang].organization}
+REV:${new Date().toISOString()}
 END:VCARD`;
 
-                // Create and download vCard file
-                const blob = new Blob([vCardData], { type: 'text/vcard' });
-                const url = window.URL.createObjectURL(blob);
+            // Create and download vCard file
+            setTimeout(() => {
+                try {
+                    const blob = new Blob([vCardData], { 
+                        type: 'text/vcard;charset=utf-8' 
+                    });
+                    
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `ahmed-zarea-${currentLang}.vcf`;
+                    link.style.display = 'none';
+                    document.body.appendChild(link);
+                    link.click();
+                    
+                    // Cleanup
+                    setTimeout(() => {
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(url);
+                    }, 100);
+                    
+                    // Show success message
+                    showSuccessMessage(translations[currentLang].successAdd);
+                    
+                    // Track the event
+                    trackContact('vcard-download');
+                    
+                } catch (error) {
+                    console.error('Error downloading vCard:', error);
+                    showErrorMessage(translations[currentLang].errorAdd);
+                } finally {
+                    // Reset button state
+                    resetButton(btn, btnText, btnLoading);
+                }
+            }, 1500);
+        }
+
+        // Download CV Function
+        function downloadCV(event) {
+            if (event) event.preventDefault();
+            
+            // Create professional CV content
+            const cvContent = `${translations[currentLang].name} - ${translations[currentLang].cv}
+
+${currentLang === 'ar' ? 'المعلومات الشخصية:' : 'Personal Information:'}
+${currentLang === 'ar' ? 'الاسم: أحمد محمد زارع' : 'Name: Ahmed Mohamed Zarea'}
+${currentLang === 'ar' ? 'المسمى الوظيفي: رئيس وحدة نظم المعلومات الجغرافية' : 'Position: Head of GIS Unit'}
+${currentLang === 'ar' ? 'الهيئة: صندوق تطوير التعليم - رئاسة مجلس الوزراء' : 'Organization: Education Development Fund - Cabinet of Ministers'}
+
+${currentLang === 'ar' ? 'معلومات الاتصال:' : 'Contact Information:'}
+${currentLang === 'ar' ? 'الهاتف: +201101026302' : 'Phone: +201101026302'}
+${currentLang === 'ar' ? 'البريد الإلكتروني الرسمي: ahmedzare@edf.edu.eg' : 'Official Email: ahmedzare@edf.edu.eg'}
+${currentLang === 'ar' ? 'البريد الشخصي: ahmedzaregis@gmail.com' : 'Personal Email: ahmedzaregis@gmail.com'}
+${currentLang === 'ar' ? 'LinkedIn: https://linkedin.com/in/ahmed-zarea' : 'LinkedIn: https://linkedin.com/in/ahmed-zarea'}
+${currentLang === 'ar' ? 'Facebook: https://www.facebook.com/share/16dB9fPDtH/' : 'Facebook: https://www.facebook.com/share/16dB9fPDtH/'}
+${currentLang === 'ar' ? 'GitHub: https://github.com/ahmedzareagis' : 'GitHub: https://github.com/ahmedzareagis'}
+
+${currentLang === 'ar' ? 'الخبرات المهنية:' : 'Professional Experience:'}
+${currentLang === 'ar' ? '- قيادة وتطوير وحدة نظم المعلومات الجغرافية' : '- Lead and develop GIS Unit'}
+${currentLang === 'ar' ? '- إدارة وتحليل البيانات المكانية للمشاريع التعليمية' : '- Manage and analyze spatial data for educational projects'}
+${currentLang === 'ar' ? '- تصميم خرائط تفاعلية وأنظمة معلومات جغرافية' : '- Design interactive maps and GIS systems'}
+${currentLang === 'ar' ? '- تطوير تقارير Power BI لتحليل البيانات التعليمية' : '- Develop Power BI reports for educational data analysis'}
+${currentLang === 'ar' ? '- الإشراف على المشاريع التقنية والتحول الرقمي' : '- Supervise technical projects and digital transformation'}
+
+${currentLang === 'ar' ? 'التاريخ:' : 'Date:'} ${new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-EG' : 'en-US')}`;
+
+            // Create and download CV file
+            try {
+                const blob = new Blob([cvContent], { 
+                    type: 'text/plain;charset=utf-8' 
+                });
+                
+                const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = url;
-                link.download = 'ahmed.zare.vcf';
+                link.download = `Ahmed-Zarea-CV-${currentLang}.txt`;
+                link.style.display = 'none';
                 document.body.appendChild(link);
                 link.click();
-                document.body.removeChild(link);
-                window.URL.revokeObjectURL(url);
                 
-                // Show success message
-                showSuccessMessage();
-                
-                // Reset button
-                btnText.style.display = 'inline';
-                btnLoading.style.display = 'none';
-                btn.style.pointerEvents = 'auto';
-                btnText.textContent = '✅ تم الإضافة';
-                
-                // Reset button text after 3 seconds
+                // Cleanup
                 setTimeout(() => {
-                    btnText.textContent = '+ Add Contact';
-                }, 3000);
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                }, 100);
                 
-            }, 2000);
+                showSuccessMessage(translations[currentLang].successDownload);
+                trackContact('cv-download');
+                
+            } catch (error) {
+                console.error('Error downloading CV:', error);
+                showErrorMessage(translations[currentLang].errorDownload);
+            }
         }
 
         // Show Success Message
-        function showSuccessMessage() {
-            const message = document.getElementById('successMessage');
-            message.classList.add('show');
+        function showSuccessMessage(message) {
+            const messageEl = document.getElementById('successMessage');
+            const messageText = document.getElementById('successText');
+            
+            messageText.textContent = message;
+            messageEl.classList.add('show');
+            
+            // Announce for screen readers
+            announceToScreenReader(message);
             
             setTimeout(() => {
-                message.classList.remove('show');
+                messageEl.classList.remove('show');
+            }, 3000);
+        }
+
+        // Show Error Message
+        function showErrorMessage(message) {
+            const messageEl = document.getElementById('successMessage');
+            const icon = messageEl.querySelector('i');
+            const messageText = document.getElementById('successText');
+            
+            icon.className = 'fas fa-exclamation-circle';
+            icon.style.color = '#dc3545';
+            messageText.textContent = message;
+            messageEl.style.background = 'linear-gradient(135deg, #dc3545, #c82333)';
+            messageEl.classList.add('show');
+            
+            announceToScreenReader(message);
+            
+            setTimeout(() => {
+                messageEl.classList.remove('show');
+                // Reset to original
+                setTimeout(() => {
+                    icon.className = 'fas fa-check-circle';
+                    icon.style.color = '';
+                    messageText.textContent = translations[currentLang].successAdd;
+                    messageEl.style.background = '';
+                }, 300);
             }, 3000);
         }
 
         // Track Contact Interactions
         function trackContact(type) {
-            console.log(`Contact method used: ${type}`);
+            const eventData = {
+                event: 'contact_interaction',
+                type: type,
+                language: currentLang,
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                platform: navigator.platform
+            };
             
-            // Add visual feedback
-            const clickedItem = event.currentTarget;
-            clickedItem.style.transform = 'scale(0.95)';
+            console.log('Contact interaction:', eventData);
             
-            setTimeout(() => {
-                clickedItem.style.transform = '';
-            }, 150);
-        }
-
-        // Download CV Function
-        function downloadCV() {
-            // Create a sample CV download
-            const cvContent = `
-أحمد محمد زارع
-رئيس وحدة نظم المعلومات الجغرافيه
-
-الخبرة المهنية:
-- تطوير البنيه المكانيه التعليميه في مصر
-- خبرة في التحليل والعرض للبيانات المكانيه
-- متخصص في تصميم وتحليل الخرائط والتقارير بواسطة PowerBi
-
-معلومات الاتصال:
-الهاتف: +201101026302
-البريد الإلكتروني: ahmedzare@gmail.com
-البريد الرسمي: ahmedzare@edf.edu.eg
-LinkedIn: https://linkedin.com/in/manar-shams
-Facebook: https://www.facebook.com/share/16dB9fPDtH/
-            `;
-            
-            const blob = new Blob([cvContent], { type: 'text/plain;charset=utf-8' });
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'Ahmed-Zare-cv.txt';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            window.URL.revokeObjectURL(url);
-            
-            trackContact('cv-download');
-        }
-
-        // Add hover effects and animations
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add stagger animation to contact items
-            const contactItems = document.querySelectorAll('.contact-item');
-            contactItems.forEach((item, index) => {
-                item.style.animationDelay = `${index * 0.1}s`;
-                item.style.animation = 'slideUp 0.6s ease-out forwards';
-            });
-
-            // Add click ripple effect
-            contactItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    const ripple = document.createElement('div');
-                    ripple.style.position = 'absolute';
-                    ripple.style.borderRadius = '50%';
-                    ripple.style.background = 'rgba(255, 255, 255, 0.6)';
-                    ripple.style.transform = 'scale(0)';
-                    ripple.style.animation = 'ripple 0.6s linear';
-                    ripple.style.left = (e.clientX - item.offsetLeft - 25) + 'px';
-                    ripple.style.top = (e.clientY - item.offsetTop - 25) + 'px';
-                    ripple.style.width = '50px';
-                    ripple.style.height = '50px';
-                    
-                    item.style.position = 'relative';
-                    item.appendChild(ripple);
-                    
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 600);
+            // Send to analytics (simulated)
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'contact_click', {
+                    'event_category': 'engagement',
+                    'event_label': type,
+                    'language': currentLang
                 });
-            });
-        });
+            }
+        }
 
-        // Add ripple animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
+        // Create Ripple Effect
+        function createRipple(event) {
+            const element = event.currentTarget;
+            if (element.classList.contains('loading')) return;
+            
+            const circle = document.createElement('span');
+            const diameter = Math.max(element.clientWidth, element.clientHeight);
+            const radius = diameter / 2;
+            const rect = element.getBoundingClientRect();
+            
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - rect.left - radius}px`;
+            circle.style.top = `${event.clientY - rect.top - radius}px`;
+            circle.classList.add('ripple');
+            
+            const ripple = element.getElementsByClassName('ripple')[0];
+            if (ripple) ripple.remove();
+            
+            element.appendChild(circle);
+            
+            // Remove ripple after animation
+            setTimeout(() => {
+                if (circle.parentElement === element) {
+                    element.removeChild(circle);
                 }
-            }
-        `;
-        document.head.appendChild(style);
+            }, 600);
+        }
 
-        // Add keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && e.target.classList.contains('contact-item')) {
-                e.target.click();
-            }
+        // Reset Button State
+        function resetButton(btn, btnText, btnLoading) {
+            setTimeout(() => {
+                btn.classList.remove('loading');
+                btnText.style.display = 'inline';
+                btnLoading.style.display = 'none';
+                btn.removeAttribute('aria-busy');
+                btn.removeAttribute('disabled');
+                
+                // Show success state temporarily
+                btn.classList.add('success');
+                btnText.textContent = translations[currentLang].added;
+                
+                setTimeout(() => {
+                    btn.classList.remove('success');
+                    btnText.textContent = translations[currentLang].addContact;
+                }, 2000);
+            }, 500);
+        }
+
+        // Screen Reader Announcement
+        function announceToScreenReader(message) {
+            const announcer = document.getElementById('sr-announcer');
+            announcer.textContent = message;
+            
+            // Clear after a delay
+            setTimeout(() => {
+                announcer.textContent = '';
+            }, 1000);
+        }
+
+        // Initialize Accessibility
+        function initializeAccessibility() {
+            // Add ARIA labels and roles
+            const contactItems = document.querySelectorAll('.contact-item');
+            contactItems.forEach(item => {
+                item.setAttribute('role', 'button');
+                item.setAttribute('tabindex', '0');
+            });
+            
+            // Add skip to content link
+            const skipLink = document.createElement('a');
+            skipLink.href = '#main-content';
+            skipLink.className = 'sr-only';
+            skipLink.textContent = currentLang === 'ar' ? 'تخطي إلى المحتوى الرئيسي' : 'Skip to main content';
+            document.body.insertBefore(skipLink, document.body.firstChild);
+            
+            // Update skip link on language
+            const observer = new MutationObserver(() => {
+                skipLink.textContent = currentLang === 'ar' ? 'تخطي إلى المحتوى الرئيسي' : 'Skip to main content';
+            });
+            observer.observe(document.documentElement, { attributes: true, attributeFilter: ['dir'] });
+            
+            // Add main content ID
+            document.querySelector('.main-content').id = 'main-content';
+        }
+
+        // Offline Detection
+        window.addEventListener('online', () => {
+            showSuccessMessage(translations[currentLang].online);
         });
 
-        // Add accessibility attributes
-        document.querySelectorAll('.contact-item').forEach(item => {
-            item.setAttribute('role', 'button');
-            item.setAttribute('tabindex', '0');
+        window.addEventListener('offline', () => {
+            showErrorMessage(translations[currentLang].offline);
         });
     </script>
 </body>
